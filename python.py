@@ -53,7 +53,7 @@ canvas.pack()
 fruit = PhotoImage(file="Img\Apple_big.png")
 photoimage=PhotoImage(file="Img\Head_big_v2.png")
 bodyimg=PhotoImage(file="Img\Body_big_v2.png")
-deadimg=PhotoImage(file="Img\You_died_v2.png")
+deadimg=PhotoImage(file="Img\You_died_v3.png")
 buttonimg=PhotoImage(file=r"Img\restart_button.png")
 poleimg=PhotoImage(file=r"Img\Pole.png")
 Pole = canvas.create_image(250,250,image=poleimg)
@@ -187,45 +187,71 @@ def die():
     canvas.create_image(250,250,image=deadimg)
 
     if tick<10:
-        numbers_mason(str(tick)[0],0)
+        numbers_mason(str(tick)[0],0,0)
     elif tick>10 and tick<100:
-        numbers_mason(str(tick)[0],0)
-        numbers_mason(str(tick)[1],30)
+        numbers_mason(str(tick)[0],0,0)
+        numbers_mason(str(tick)[1],30,0)
     elif tick>100 and tick<999:
-        numbers_mason(str(tick)[0],0)
-        numbers_mason(str(tick)[1],30)
-        numbers_mason(str(tick)[2],60)
+        numbers_mason(str(tick)[0],0,0)
+        numbers_mason(str(tick)[1],30,0)
+        numbers_mason(str(tick)[2],60,0)
     else:
-        numbers_mason(str(tick)[0],0)
-        numbers_mason(str(tick)[1],30)
-        numbers_mason(str(tick)[2],60)
-        numbers_mason(str(tick)[3],90)
+        numbers_mason(str(tick)[0],0,0)
+        numbers_mason(str(tick)[1],30,0)
+        numbers_mason(str(tick)[2],60,0)
+        numbers_mason(str(tick)[3],90,0)
+
+    rank = ranking(tick)
+
+    if rank<10:
+        numbers_mason(str(rank)[0],0,50)
+    elif rank>10 and rank<100:
+        numbers_mason(str(rank)[0],0,50)
+        numbers_mason(str(rank)[1],30,50)
+    elif rank>100 and rank<999:
+        numbers_mason(str(rank)[0],0,50)
+        numbers_mason(str(rank)[1],30,50)
+        numbers_mason(str(rank)[2],60,50)
+    else:
+        numbers_mason(str(rank)[0],0,50)
+        numbers_mason(str(rank)[1],30,50)
+        numbers_mason(str(rank)[2],60,50)
+        numbers_mason(str(rank)[3],90,50)
 
     B = Button(window, image=buttonimg, command = lambda: restart())
     B.place(x=200,y=400)
 
-def numbers_mason(number,pos):
+def ranking(tick):
+    r = open("ranking.txt","r")
+    if int(r.read()) < tick :
+        w = open("ranking.txt","w")
+        w.write(str(tick))
+        return tick
+    r = open("ranking.txt","r")
+    return int(r.read())
+
+def numbers_mason(number,posx,posy):
     match number:
         case "0":
-            canvas.create_image(250+pos,250,image=img0)
+            canvas.create_image(250+posx,250+posy,image=img0)
         case "1":
-            canvas.create_image(250+pos,250,image=img1)
+            canvas.create_image(250+posx,250+posy,image=img1)
         case "2":
-            canvas.create_image(250+pos,250,image=img2)
+            canvas.create_image(250+posx,250+posy,image=img2)
         case "3":
-            canvas.create_image(250+pos,250,image=img3)
+            canvas.create_image(250+posx,250+posy,image=img3)
         case "4":
-            canvas.create_image(250+pos,250,image=img4)
+            canvas.create_image(250+posx,250+posy,image=img4)
         case "5":
-            canvas.create_image(250+pos,250,image=img5)
+            canvas.create_image(250+posx,250+posy,image=img5)
         case "6":
-            canvas.create_image(250+pos,250,image=img6)
+            canvas.create_image(250+posx,250+posy,image=img6)
         case "7":
-            canvas.create_image(250+pos,250,image=img7)
+            canvas.create_image(250+posx,250+posy,image=img7)
         case "8":
-            canvas.create_image(250+pos,250,image=img8)
+            canvas.create_image(250+posx,250+posy,image=img8)
         case "9":
-            canvas.create_image(250+pos,250,image=img9)
+            canvas.create_image(250+posx,250+posy,image=img9)
 
 def going_fast():
     global speed
